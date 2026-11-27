@@ -29,7 +29,6 @@ def test_all_artifacts_checksummed():
 @pytest.mark.parametrize("key", KEYS)
 def test_model_loads_and_predicts(key):
     model = load_model(key, MANIFEST)
-    size = model.input_size
     img, _ = load_image_from_bytes(make_png(size=(640, 480), noise=0.05, seed=hash(key) % 1000))
     pred = predict_image(img, model)
     assert 0.0 <= pred.top_score <= 1.0

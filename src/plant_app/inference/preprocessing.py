@@ -69,7 +69,7 @@ def load_image_from_path(path: Path | str, max_mb: int = 10) -> tuple[Image.Imag
     return load_image_from_bytes(path.read_bytes(), max_mb=max_mb)
 
 
-def to_model_input(img: Image.Image, size: tuple[int, int]) -> "list[list[list[list[float]]]]":
+def to_model_input(img: Image.Image, size: tuple[int, int]) -> list[list[list[list[float]]]]:
     """Resize with bilinear interpolation and rescale to [0, 1].
 
     Produces a (1, h, w, 3) float32 batch. Rescaling by 1/255 must match the

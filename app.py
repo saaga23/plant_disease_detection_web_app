@@ -35,8 +35,8 @@ from plant_app.models.registry import (  # noqa: E402
     load_model,
 )
 from plant_app.services.qa import answer_question  # noqa: E402
-from plant_app.services.web_search import web_search  # noqa: E402
 from plant_app.services.weather import get_weather  # noqa: E402
+from plant_app.services.web_search import web_search  # noqa: E402
 from plant_app.utils.images import human_size  # noqa: E402
 
 st.set_page_config(
@@ -370,8 +370,8 @@ def search_page() -> None:
 def feedback_page() -> None:
     st.header("Feedback")
     with st.form("feedback_form"):
-        name = st.text_input("Name")
-        email = st.text_input("Email")
+        _name = st.text_input("Name")
+        _email = st.text_input("Email")
         feedback = st.text_area("Feedback")
         submitted = st.form_submit_button("Submit feedback")
     if submitted:
