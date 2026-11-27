@@ -33,7 +33,11 @@ def test_no_hardcoded_credentials():
 
     offenders = []
     for py in ROOT.rglob("*.py"):
-        if ".git" in py.parts or "legacy_" in py.name:
+        if any(
+            part in {".git", ".venv", "venv", "node_modules", "__pycache__"} for part in py.parts
+        ):
+            continue
+        if "legacy_" in py.name:
             continue  # legacy copies are quarantined under docs/ with warnings
         text = py.read_text(encoding="utf-8", errors="replace")
         if re.search(r'password\s*=\s*["\'][^"\']+["\']', text) and "os.environ" not in text:
