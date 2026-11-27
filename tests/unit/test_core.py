@@ -11,17 +11,16 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
 from plant_app.config import get_settings  # noqa: E402
+from plant_app.database import connection as db  # noqa: E402
+from plant_app.inference.predictor import InferenceError, predict_image  # noqa: E402
+from plant_app.inference.preprocessing import load_image_from_bytes  # noqa: E402
 from plant_app.models.registry import (  # noqa: E402
     APP_HOME,
-    ManifestError,
     ModelNotFoundError,
     load_manifest,
     load_model,
     verify_manifest_checksums,
 )
-from plant_app.inference.predictor import InferenceError, predict_image  # noqa: E402
-from plant_app.inference.preprocessing import load_image_from_bytes  # noqa: E402
-from plant_app.database import connection as db  # noqa: E402
 from tests.conftest import make_png  # noqa: E402
 
 

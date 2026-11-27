@@ -29,7 +29,6 @@ from plant_app.models.registry import load_manifest, verify_manifest_checksums  
 
 def validate() -> tuple[bool, list[dict]]:
     import numpy as np
-    import tensorflow as tf
 
     manifest = load_manifest()
     problems = verify_manifest_checksums(manifest)

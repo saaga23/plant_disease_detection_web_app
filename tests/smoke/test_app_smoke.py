@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 def test_app_imports_and_declares_pages():
     pytest = __import__("pytest")
-    st = pytest.importorskip("streamlit")
+    pytest.importorskip("streamlit")
     app_path = ROOT / "app.py"
     assert app_path.exists()
     src = app_path.read_text(encoding="utf-8")
