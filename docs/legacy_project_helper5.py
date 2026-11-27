@@ -63,7 +63,7 @@ def connect_to_database():
     return mysql.connector.connect(
         host="127.0.0.1",
         user="root",
-        password="abraham23@",
+        password="REDACTED_ROTATED_2026-11-27",
         database="farmer2"
     )
 # Function to retrieve farm activity data by FarmerID
