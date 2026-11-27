@@ -1,0 +1,122 @@
+{
+  "manifest_version": 1,
+  "generated": "2026-11-27",
+  "note": "Checksums verified in the rehabilitation audit. classes_verified=false because no label artifact (dataset, training code, or checkpoint metadata) exists in the repository to prove index-to-name ordering; treat class names as best-effort labels from the legacy app source.",
+  "models": {
+    "tomato": {
+      "path": "CNN_model_tomatoes",
+      "format": "tf_savedmodel_keras2_legacy",
+      "sha256_files": {
+        "CNN_model_tomatoes/fingerprint.pb": "67549dfb6b31c208922963fc3b5b1704bab9a2849625806e376f2d71c0cb5c0e",
+        "CNN_model_tomatoes/keras_metadata.pb": "18a7e8efe41a23300b5ea496f1be9187420c46ec555bda2293c98da2b978fb2e",
+        "CNN_model_tomatoes/saved_model.pb": "839f972ddf1a72fcbfe9394142d8f8796cabc1ce012d366ab8f814b4b94ff330",
+        "CNN_model_tomatoes/variables/variables.data-00000-of-00001": "80fa3729100e3d3241b2c0f0e1c573da2a3873f7d296e46ff8b0580cfdf481a1",
+        "CNN_model_tomatoes/variables/variables.index": "dac2875bc492cc0d3a53efa169f7ef58ac8a527dcd0ee260538a28711089b009"
+      },
+      "files": {
+        "CNN_model_tomatoes/fingerprint.pb": "67549dfb6b31c208922963fc3b5b1704bab9a2849625806e376f2d71c0cb5c0e",
+        "CNN_model_tomatoes/keras_metadata.pb": "18a7e8efe41a23300b5ea496f1be9187420c46ec555bda2293c98da2b978fb2e",
+        "CNN_model_tomatoes/saved_model.pb": "839f972ddf1a72fcbfe9394142d8f8796cabc1ce012d366ab8f814b4b94ff330",
+        "CNN_model_tomatoes/variables/variables.data-00000-of-00001": "80fa3729100e3d3241b2c0f0e1c573da2a3873f7d296e46ff8b0580cfdf481a1",
+        "CNN_model_tomatoes/variables/variables.index": "dac2875bc492cc0d3a53efa169f7ef58ac8a527dcd0ee260538a28711089b009"
+      },
+      "input_width": 256,
+      "input_height": 256,
+      "channels": 3,
+      "output_classes": 10,
+      "preprocessing": "resize bilinear to 256x256, rescale 1/255 (matches legacy app; training-pipeline provenance unverified)",
+      "classes": [
+        "Tomato___Bacterial_spot",
+        "Tomato___Early_blight",
+        "Tomato___Late_blight",
+        "Tomato___Leaf_Mold",
+        "Tomato___Septoria_leaf_spot",
+        "Tomato___Spider_mites Two-spotted_spider_mite",
+        "Tomato___Target_Spot",
+        "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+        "Tomato___Tomato_mosaic_virus",
+        "Tomato___healthy"
+      ],
+      "classes_verified": false,
+      "framework": "tensorflow (Keras 2-era SavedModel; loads via load_model on TF<=2.15 or TFSMLayer on Keras 3)",
+      "is_paper_model": false,
+      "known_limitations": "Small custom CNN (~0.5M params), not the MobileNetV2 field model reported in the PMLR v319 paper. Uncalibrated outputs. Class-index ordering unverified. Likely trained on PlantVillage-style imagery; expect degraded accuracy on real field photos."
+    },
+    "potato": {
+      "path": "potatoed_disease_classifier",
+      "format": "tf_savedmodel_keras2_legacy",
+      "files": {
+        "potatoed_disease_classifier/fingerprint.pb": "a7a46170be8b796a4e80b0678d7e9391dd038e13dc7ce0bc314455067965e50b",
+        "potatoed_disease_classifier/keras_metadata.pb": "9ab677d7973e28faaf16a1022c6e4b7a6de2023898b5288b24450c68491b1097",
+        "potatoed_disease_classifier/saved_model.pb": "b169bf804df267dd5dd7923c57f8ffc391d4d4badbfd26a09f71bc4e134ab260",
+        "potatoed_disease_classifier/variables/variables.data-00000-of-00001": "192fc4628d6002a432eca7d15a4a10f2b0d9f713cb23e12c801b7d3317423271",
+        "potatoed_disease_classifier/variables/variables.index": "377f3f79d85f5951cb1d5958cec728b615a6a458d65dd59b9186b17ec1b8d4ca"
+      },
+      "input_width": 256,
+      "input_height": 256,
+      "channels": 3,
+      "output_classes": 3,
+      "preprocessing": "resize bilinear to 256x256, rescale 1/255 (matches legacy app; training-pipeline provenance unverified)",
+      "classes": [
+        "Potato___Early_blight",
+        "Potato___Late_blight",
+        "Potato___healthy"
+      ],
+      "classes_verified": false,
+      "framework": "tensorflow (Keras 2-era SavedModel; loads via load_model on TF<=2.15 or TFSMLayer on Keras 3)",
+      "is_paper_model": false,
+      "known_limitations": "Small custom CNN (~0.5M params), not the MobileNetV2 field model reported in the PMLR v319 paper. Uncalibrated outputs. Class-index ordering unverified."
+    },
+    "pepper": {
+      "path": "pepper-model.h5",
+      "format": "keras_h5",
+      "files": {
+        "pepper-model.h5": "43ee4c24e17f8c5ece0d8fb9486ad493cd973247657b31ea482d8bd0b53aa15a"
+      },
+      "input_width": 128,
+      "input_height": 128,
+      "channels": 3,
+      "output_classes": 2,
+      "preprocessing": "resize bilinear to 128x128, rescale 1/255 (matches legacy pepper-prediction.py)",
+      "classes": [
+        "Pepper__bell___Bacterial_spot",
+        "Pepper__bell___healthy"
+      ],
+      "classes_verified": false,
+      "framework": "tensorflow keras (H5, loads on Keras 2 and 3)",
+      "is_paper_model": false,
+      "known_limitations": "4-block custom CNN (5.24M params), not a paper model. Uncalibrated outputs. Two-class set is inconsistent with PlantVillage pepper (10 classes + background); class-index ordering unverified. Git LFS artifact - run git lfs pull."
+    },
+    "pest": {
+      "path": "pest_detection_model2.h5",
+      "format": "keras_h5",
+      "files": {
+        "pest_detection_model2.h5": "d64f012f3aa145e62d95391892562e669cac001502a8626cbbf89c9b7ff4a8e4"
+      },
+      "input_width": 128,
+      "input_height": 128,
+      "channels": 3,
+      "output_classes": 13,
+      "preprocessing": "resize bilinear to 128x128, rescale 1/255 (matches legacy app)",
+      "classes": [
+        "aphids",
+        "armyworm",
+        "beetle",
+        "bollworm",
+        "grasshopper",
+        "mites",
+        "mosquito",
+        "slug",
+        "snail",
+        "whitefly",
+        "fruit_and_vegetable_disease_complex",
+        "healthy",
+        "unknown"
+      ],
+      "classes_verified": false,
+      "framework": "tensorflow keras (H5, loads on Keras 2 and 3)",
+      "is_paper_model": false,
+      "known_limitations": "4-block custom CNN (5.24M params), not a paper model. Uncalibrated outputs. Class list is the legacy app list; class-index ordering unverified. Git LFS artifact - run git lfs pull."
+    }
+  }
+}

@@ -1,0 +1,13 @@
+streamlit>=1.36,<2
+pillow>=10.0
+numpy>=1.26
+pandas>=2.0
+requests>=2.31
+python-dotenv>=1.0
+# TensorFlow: >=2.16 ships Keras 3 and needs Python >=3.9; the loader in
+# src/plant_app/models/registry.py supports both Keras 2 (TF<=2.15) and
+# Keras 3 loading paths. Tested with TF 2.21 / Python 3.12.
+tensorflow>=2.15
+# Optional extras (not required for the core app):
+#   mysql-connector-python>=8.0   # only for DB_MODE=mysql
+#   openai>=1.0                   # only for the Question Answering page

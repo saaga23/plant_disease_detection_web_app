@@ -1,0 +1,39 @@
+# --- Secrets and local configuration ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Data that must never be committed ---
+data/demo/*.db
+data/demo/*.sqlite3
+uploads/
+*.log
+
+# --- Model artifacts fetched out-of-band (LFS handles the tracked ones) ---
+models/external/
+
+# --- OS / IDE noise ---
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# --- Streamlit ---
+.streamlit/secrets.toml
