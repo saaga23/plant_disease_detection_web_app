@@ -140,7 +140,7 @@ def classifier_page(key: str, title: str, blurb: str) -> None:
         st.caption("Image was rotated according to its EXIF orientation metadata.")
     col_img, col_out = st.columns([1, 2])
     with col_img:
-        st.image(img, use_container_width=True)
+        st.image(img, width='stretch')
     with col_out:
         try:
             pred = predict_image(img, model, max_mb=settings.max_upload_mb)
@@ -271,7 +271,7 @@ def vaccination_page() -> None:
     df = pd.DataFrame(VACCINATION_ROWS, columns=["Animal", "Disease", "Vaccine Name", "Dosage"])
     selected = st.selectbox("Select a Farm Animal", sorted(df["Animal"].unique()))
     st.write(f"Common Diseases and Vaccines for {selected}")
-    st.dataframe(df[df["Animal"] == selected], use_container_width=True)
+    st.dataframe(df[df["Animal"] == selected], width='stretch')
     st.caption(
         "Educational information only, inherited from the legacy app (attributed to "
         "local veterinary professionals, without citable records). Vaccination "
@@ -326,7 +326,7 @@ def retrieve_page() -> None:
         st.info("No crop records yet. Add some on the Record Input page.")
         return
     df = pd.DataFrame(rows)
-    st.dataframe(df, use_container_width=True)
+    st.dataframe(df, width='stretch')
     if df["quantity"].notna().any() and df["quantity"].astype(float).sum() > 0:
         st.subheader("Yield Distribution")
         st.bar_chart(df.set_index("crop_name")["quantity"].astype(float))

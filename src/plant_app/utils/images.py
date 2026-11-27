@@ -1,7 +1,7 @@
 """Shared image helpers for the UI layer."""
 from __future__ import annotations
 
-from .preprocessing import (  # noqa: F401  (re-exports)
+from ..inference.preprocessing import (  # noqa: F401  (re-exports)
     ALLOWED_FORMATS,
     ImageTooLargeError,
     InvalidImageError,
