@@ -26,12 +26,12 @@ Stated plainly, so a reviewer does not have to hunt for them.
    them educational-only.
 8. **Optional services require keys.** Q&A (OpenAI) and web search (SerpAPI)
    fail gracefully with configuration messages when keys are absent.
-9. **Legacy sources contain the removed credential.** `docs/legacy_*` files
-   preserve the original code verbatim (with a header note) for audit
-   integrity. If the Git history is later rewritten to purge the credential
-   (pending owner approval), those copies should be regenerated from the
-   sanitized history. Until then, treat the legacy copies and Git history as
-   still containing the old credential.
+9. **Legacy sources were the credential's last public copy.** The value was
+   redacted from `docs/legacy_*` at the branch tip (commit 205a10c) after
+   the local rotation was verified; the verbatim pre-redaction originals
+   exist only in the local recovery bundle. The value remains reachable in
+   public Git history at commit 4d87028; it is verifiably dead, and history
+   cleanup is pending owner decision.
 10. **The SQLite demo is not production storage.** It exists so the database
     pages work without a server; real deployments should use MySQL with the
     provided schema.

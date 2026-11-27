@@ -31,7 +31,7 @@ or insect and receives a class prediction plus practical guidance pages
 | `scripts/` | `validate_models.py`, `evaluate_models.py`, `run_tests.py`, SQL schemas |
 | `tests/` | Unit, integration, and smoke tests (33 tests) |
 | `docs/` | Architecture, model cards, data provenance, evaluation protocol, deployment, known limitations, security remediation, research reproducibility |
-| `docs/legacy_*` | The original unmodified sources, quarantined for audit integrity |
+| `docs/legacy_*` | The original sources quarantined for audit integrity; the rotated MySQL credential value was redacted from them (commit 205a10c) |
 | `.github/workflows/ci.yml` | CI: lint, model validation, tests, secret scan |
 
 ## Quick start
@@ -137,7 +137,8 @@ educational-only.
 A hardcoded database credential present in earlier versions was removed;
 credentials are now environment-only. Full disclosure and rotation
 instructions: [docs/security_remediation.md](docs/security_remediation.md).
-The old credential must be treated as compromised and rotated by the owner.
+The exposed credential was rotated on 2026-11-27 and verified no longer to
+authenticate; local root access is pending recovery (see the report).
 
 ## License
 
