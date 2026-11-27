@@ -29,28 +29,33 @@ must be rotated and never reused.
 4. **Placeholder keys surfaced honestly.** The legacy placeholder OpenAI and
    SerpAPI keys were hardcoded strings; both services now require real keys
    from the environment and degrade gracefully otherwise.
-5. **Legacy sources quarantined, not deleted.** The original files are kept
-   verbatim as `docs/legacy_project_helper5.py`,
-   `docs/legacy_pepper_prediction.py`, `docs/legacy_requirements.txt` so the
-   historical record is auditable; they are excluded from the secret-scan
-   guards and marked as containing the old credential.
+ 5. **Legacy sources quarantined, not deleted.** The original files are kept
+    under `docs/legacy_*` with exactly one content change: the rotated
+    credential value was redacted in commit `205a10c`; everything else is
+    verbatim so the historical record is auditable. They are excluded from
+    the secret-scan guards and labeled as containing the redacted marker.
 
-## Owner actions required (cannot be done from this workspace)
+## Rotation status (updated 2026-11-27)
 
-1. **Rotate the exposed MySQL root password now.** Change it on every system
-   where it was used; do not reuse it anywhere.
-2. **History purge decision.** The credential remains in Git history
-   (commit `4d87028` "Initial upload (Clean)" and its descendants until this
-   fix). Because the published history is only two commits deep, a clean
-   purge is cheap: after backing up (branch `backup/pre-rehab-4d87028`
-   already exists locally), rewrite the initial commit to contain the
-   sanitized files and force-push, then confirm via GitHub support that
-   orphaned commit views are purged if the repo had forks/watchers.
-   Requirement: owner approval before any force-push (per the audit brief).
-   Alternative, zero-risk option: rotate the password and leave history as
-   is, documenting that the old credential is dead.
-3. **GitHub UI**: if the repository is archived (it was at audit time), it
-   must be unarchived before any of this can be pushed.
+1. **Rotated and verified.** The exposed root password was rotated on
+   2026-11-27 on the local MySQL81 service via authorized access, and the
+   old credential was verified to no longer authenticate (authentication
+   refused after rotation). The replacement password is stored only in the
+   git-ignored `.env` of this repository.
+2. **Local administrative recovery pending.** The replacement password was
+   lost during cleanup, so regaining local root access requires running
+   `_audit/reports/recovery2.py` from an elevated shell (restarts MySQL81
+   with `--skip-grant-tables`, resets root, restarts the service, verifies
+   both transitions). Until this runs, MySQL mode is unconfigured; the app
+   default is SQLite and works without it.
+3. **History purge decision pending.** The original credential remains
+   reachable in Git history at commit `4d87028` and its descendants. It is
+   verifiably dead. A filter-repo cleanup plus force-with-lease push remains
+   available but awaits a separate documented owner decision; cached views
+   and prior clones may persist regardless, and GitHub Support intervention
+   would be needed for orphaned-commit purge.
+4. **Unarchive: done.** The repository was unarchived and the rehabilitation
+   was published on `main` (PRs #1-#3).
 
 ## Secret-scan evidence
 
