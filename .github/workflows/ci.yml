@@ -1,4 +1,4 @@
-name: CI
+﻿name: CI
 
 on:
   push:
@@ -41,14 +41,10 @@ jobs:
       - name: Integration tests (real model inference)
         run: python -m pytest tests/integration
 
-      # NOTE: a Gitleaks full-history scan was attempted and removed in this
-      # same session: gitleaks-action v2 fails on this repository with
-      # "failed to scan Git repository: stderr is not empty" because Git LFS
-      # smudge output reaches git-log stderr (known upstream limitation).
-      # The regex scan below covers every tracked Python file, including
-      # the legacy_* copies whose rotated credential is redacted. Re-add
-      # Gitleaks with an LFS-tolerant configuration once upstream resolves
-      # the stderr failure.
+      - name: Secret scan (Gitleaks, pinned major)
+        uses: gitleaks/gitleaks-action@v2 # pinned: v2 -> dcedce43c6f43de0b836d1fe38946645c9c638dc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Project-specific credential pattern scan
         run: |
@@ -63,7 +59,13 @@ jobs:
               if any(part in {".git", ".venv", "venv", "node_modules"} for part in p.parts):
                   continue
               text = p.read_text(encoding="utf-8", errors="replace")
+              # Documented false positive: the redaction marker left in
+              # the quarantined legacy copies when the real credential was
+              # rotated (docs/security_remediation.md, commit 205a10c).
+              # Only this exact value is allowed - no other suppression.
               for m in pattern.finditer(text):
+                  if "REDACTED_ROTATED_2026-11-27" in m.group(0):
+                      continue
                   offenders.append(f"{p}: {m.group(0)[:40]}...")
           if offenders:
               print("\n".join(offenders))
