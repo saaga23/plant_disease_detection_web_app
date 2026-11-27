@@ -41,17 +41,22 @@ jobs:
       - name: Integration tests (real model inference)
         run: python -m pytest tests/integration
 
-      - name: Secret scan (simple pattern scan; replaces the removed hardcoded credential)
+      - name: Secret scan (Gitleaks, pinned major)
+        uses: gitleaks/gitleaks-action@v2 # pinned: v2 -> dcedce43c6f43de0b836d1fe38946645c9c638dc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Project-specific credential pattern scan
         run: |
           python - <<'EOF'
           import re, sys, pathlib
           root = pathlib.Path(".")
           offenders = []
           pattern = re.compile(r"(password|api_key|secret|token)\s*=\s*[\"'][^\"']{6,}[\"']", re.I)
+          # scans ALL tracked application files; legacy_* copies are included
+          # because their rotated credential value is redacted (commit 205a10c)
           for p in root.rglob("*.py"):
               if any(part in {".git", ".venv", "venv", "node_modules"} for part in p.parts):
-                  continue
-              if p.name.startswith("legacy_"):
                   continue
               text = p.read_text(encoding="utf-8", errors="replace")
               for m in pattern.finditer(text):
